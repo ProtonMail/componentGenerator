@@ -16,30 +16,28 @@ const componentConfig = ({ name, component }) => {
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 
 (async () => {
+    try {
+        const answers = await inquirer.prompt(QUESTIONS.main);
 
-  try {
-    const answers = await inquirer.prompt(QUESTIONS.main);
+        if (/^\d/.test(answers.name)) {
+            throw new Error('The component must start with [a-z]');
+        }
 
-    if (/^\d/.test(answers.name)) {
-      throw new Error('The component must start with [a-z]');
+        const data = await inquirer.prompt(QUESTIONS.component);
+        answers.component = data;
+
+        if (answers.component.type !== 'module') {
+            const { module } = await inquirer.prompt(QUESTIONS.bindModule);
+            answers.component.module = module;
+
+            if ('directive' === answers.component.type) {
+                const data = await inquirer.prompt(QUESTIONS.directives);
+                answers.component.options = data;
+            }
+        }
+
+        component.create(componentConfig(answers));
+    } catch (e) {
+        log.error(e);
     }
-
-    const data = await inquirer.prompt(QUESTIONS.component);
-    answers.component = data;
-
-    if (answers.component.type !== 'module') {
-      const { module } = await inquirer.prompt(QUESTIONS.bindModule);
-      answers.component.module = module;
-
-      if ('directive' === answers.component.type) {
-        const data = await inquirer.prompt(QUESTIONS.directives);
-        answers.component.options = data;
-      }
-    }
-
-    component.create(componentConfig(answers));
-  } catch (e) {
-    log.error(e);
-  }
-
 })();

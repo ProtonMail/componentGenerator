@@ -17,11 +17,20 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
     "prettier": "^1.9.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretty": "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --prose-wrap=never --write index.js lib/**/*.js lib/*.js"
+    "pretty": "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --prose-wrap=never --write index.js lib/**/*.js lib/*.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --no-prose-wrap --write",
+      "git add"
+    ]
   },
   "author": "",
   "license": "MIT"
