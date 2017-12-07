@@ -1,3 +1,5 @@
+const modules = require('../lib/listModules')();
+
 const questions = [
   // {
   //   name: 'type',
@@ -37,9 +39,17 @@ const questionsComponent = [
   }
 ];
 
+
+const formatModuleChoice = (create = false) => (name) => ({ name, create });
 const bindModuleQuestions = [{
     name: 'module',
-    message: 'From module :'
+    message: 'From module :',
+    type: 'autocomplete',
+    source: async (list, input) => {
+      const col = modules.filter((name) => name.includes(input));
+      const items = col.length ? col.map(formatModuleChoice()) : [ input ].map(formatModuleChoice(true));
+      return items;
+    }
 }]
 
 const questionsDirectives = [

@@ -1,4 +1,4 @@
-/*@ngInject*/
+/* @ngInject */
 function {{component}}() {
     return (input = '') => input;
 }

@@ -1,4 +1,4 @@
-/*@ngInject*/
+/* @ngInject */
 function {{component}}() {
 
     return {
@@ -8,10 +8,8 @@ function {{component}}() {
         link(scope, el, attr) {
             console.log('{{component}} is running');
 
-            scope
-                .$on('$destroy', () => {
-
-                });
+            scope.$on('$destroy', () => {
+            });
         }
     }
 }
