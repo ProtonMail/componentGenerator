@@ -65,12 +65,6 @@ const questionsDirectives = [
         type: 'confirm'
     },
     {
-        name: 'hasCtrl',
-        message: 'Bind a controller (default:false) ?',
-        default: false,
-        type: 'confirm'
-    },
-    {
         name: 'hasCSS',
         message: 'Create a CSS (default: true)',
         default: true,
