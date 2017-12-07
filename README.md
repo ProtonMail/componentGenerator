@@ -28,3 +28,5 @@ $ appComponent
 ```sh
 $ .<path-diretory>/index.js
 ```
+
+!['demo'](doc/output.gif)
