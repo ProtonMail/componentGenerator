@@ -15,24 +15,26 @@ const componentConfig = ({ name, component }) => {
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 
+const getName = async () => {
+    if (process.argv[2]) {
+        return { name: process.argv[2].trim() };
+    }
+    return inquirer.prompt(QUESTIONS.main);
+};
+
 (async () => {
     try {
-        const answers = await inquirer.prompt(QUESTIONS.main);
-
-        if (/^\d/.test(answers.name)) {
-            throw new Error('The component must start with [a-z]');
-        }
-
+        const answers = await getName();
         const data = await inquirer.prompt(QUESTIONS.component);
         answers.component = data;
-        console.log(data);
-        if (!data) {
-            throw new Error('You must select a module');
-        }
 
         if (answers.component.type !== 'module') {
             const { module } = await inquirer.prompt(QUESTIONS.bindModule);
             answers.component.module = module;
+
+            if (!module) {
+                throw new Error('You must select a module');
+            }
 
             if ('directive' === answers.component.type) {
                 const data = await inquirer.prompt(QUESTIONS.directives);

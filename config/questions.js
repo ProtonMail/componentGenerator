@@ -15,6 +15,10 @@ const questions = [
         message: 'Name of the component ?',
         validate(input) {
             if (input) {
+                if (/^\d/.test(input)) {
+                    return 'The component must start with [a-z]';
+                }
+
                 return true;
             }
 
