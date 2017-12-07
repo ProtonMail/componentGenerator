@@ -1,6 +1,6 @@
 # Component Generator
 
-CLI to create new components: [Angular Front-End for ProtonMail](https://github.com/ProtonMail/Angular).
+CLI to create new components: [Angular Front-End for ProtonMail](https://github.com/ProtonMail/WebClient).
 
 ## Requirements
 
