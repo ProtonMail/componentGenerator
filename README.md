@@ -23,6 +23,8 @@ To test you can add an alias to have a better command.
 $ create-component
 ```
 
+> It's possible to define the component's name via an argument `$ create-component <name:String>`
+
 
 ## Usage without an alias
 
