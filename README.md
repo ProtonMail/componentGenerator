@@ -1,14 +1,12 @@
 # Component Generator
 
-CLI to create a new components: [Angular Front-End for ProtonMail](https://github.com/ProtonMail/Angular).
+CLI to create new components: [Angular Front-End for ProtonMail](https://github.com/ProtonMail/Angular).
 
 ## Requirements
 
 - node.js >= **v8**
 
-## Usage with custom alias
-
-To test you can add an alias to have a better command.
+## How to install
 
 1. Clone and cd into the directory
 2. `$ npm install`
