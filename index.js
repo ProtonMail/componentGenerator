@@ -25,6 +25,10 @@ inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 
         const data = await inquirer.prompt(QUESTIONS.component);
         answers.component = data;
+        console.log(data);
+        if (!data) {
+            throw new Error('You must select a module');
+        }
 
         if (answers.component.type !== 'module') {
             const { module } = await inquirer.prompt(QUESTIONS.bindModule);
