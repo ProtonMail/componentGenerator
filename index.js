@@ -19,6 +19,11 @@ inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 
   try {
     const answers = await inquirer.prompt(QUESTIONS.main);
+
+    if (/^\d/.test(answers.name)) {
+      throw new Error('The component must start with [a-z]');
+    }
+
     const data = await inquirer.prompt(QUESTIONS.component);
     answers.component = data;
 
