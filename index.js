@@ -36,7 +36,7 @@ const getName = async () => {
                 throw new Error('You must select a module');
             }
 
-            if ('directive' === answers.component.type) {
+            if ('directive' === answers.component.type || 'modal' === answers.component.type) {
                 const data = await inquirer.prompt(QUESTIONS.directives);
                 answers.component.options = data;
             }

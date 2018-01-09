@@ -36,6 +36,7 @@ const questionsComponent = [
             { name: 'A directive', value: 'directive' },
             { name: 'A factory', value: 'factory' },
             { name: 'A service', value: 'service' },
+            { name: 'A modal', value: 'modal' },
             { name: 'A module', value: 'module' },
             { name: 'A controller', value: 'controller' },
             { name: 'A filter', value: 'filter' }
