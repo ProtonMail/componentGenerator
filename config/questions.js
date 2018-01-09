@@ -72,9 +72,19 @@ const questionsDirectives = [
     }
 ];
 
+const questionsModules = [
+    {
+        name: 'isLazy',
+        message: 'Do you want to lazy load it (default:false) ?',
+        default: false,
+        type: 'confirm'
+    }
+];
+
 module.exports = {
     main: questions,
     component: questionsComponent,
     bindModule: bindModuleQuestions,
-    directives: questionsDirectives
+    directives: questionsDirectives,
+    module: questionsModules
 };

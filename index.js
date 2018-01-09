@@ -9,8 +9,8 @@ const QUESTIONS = require('./config/questions');
 const component = require('./lib/factory');
 const log = require('./lib/log');
 
-const componentConfig = ({ name, component }) => {
-    return xtend({ component: name }, component);
+const componentConfig = ({ name, component, isLazy }) => {
+    return xtend({ component: name, isLazy }, component);
 };
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -42,6 +42,10 @@ const getName = async () => {
             }
         }
 
+        if (answers.component.type === 'module') {
+            const { isLazy } = await inquirer.prompt(QUESTIONS.module);
+            answers.isLazy = isLazy;
+        }
         component.create(componentConfig(answers));
     } catch (e) {
         log.error(e);
