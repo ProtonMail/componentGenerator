@@ -14,22 +14,22 @@
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-tap": "^0.1.3",
-    "gulp-util": "^3.0.7",
     "inquirer": "^1.1.3",
     "inquirer-autocomplete-prompt": "^0.12.0",
+    "prettier": "^1.9.1",
     "xtend": "^4.0.1"
   },
   "devDependencies": {
     "husky": "^0.14.3",
-    "lint-staged": "^6.0.0",
-    "prettier": "^1.9.1"
+    "lint-staged": "^6.0.0"
   },
   "scripts": {
     "bind:bash": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.bashrc",
     "bind:zsh": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.zshrc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretty": "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --prose-wrap=never --write index.js lib/**/*.js lib/*.js",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "postversion": "git push --tags"
   },
   "lint-staged": {
     "*.js": [
