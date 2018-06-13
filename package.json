@@ -29,13 +29,13 @@
     "bind:bash": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.bashrc",
     "bind:zsh": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.zshrc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretty": "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --prose-wrap=never --write index.js lib/**/*.js lib/*.js",
+    "pretty": "prettier --write index.js lib/**/*.js lib/*.js",
     "precommit": "lint-staged",
     "postversion": "git push --tags"
   },
   "lint-staged": {
     "*.js": [
-      "prettier --arrow-parens=always --single-quote --tab-width=4 --print-width=150 --no-prose-wrap --write",
+      "prettier --write",
       "git add"
     ]
   },
