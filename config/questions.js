@@ -1,4 +1,6 @@
-const modules = require('../lib/listModules')();
+const sources = require('../lib/readSrc');
+const modules = sources.getModules();
+const files = sources.getFiles();
 
 const questions = [
     // {
@@ -58,6 +60,25 @@ const bindModuleQuestions = [
     }
 ];
 
+const specs = [
+    {
+        name: 'spec.type',
+        message: 'Type of component',
+        type: 'list',
+        default: 'component',
+        choices: [{ name: 'A component', value: 'app' }, { name: 'A helper', value: 'helpers' }]
+    },
+    {
+        name: 'spec.file',
+        message: 'From component :',
+        type: 'autocomplete',
+        async source(config, input) {
+            const col = files[config.spec.type].filter(({ name }) => name.includes(input));
+            return col;
+        }
+    }
+];
+
 const questionsDirectives = [
     {
         name: 'hasView',
@@ -87,5 +108,6 @@ module.exports = {
     component: questionsComponent,
     bindModule: bindModuleQuestions,
     directives: questionsDirectives,
-    module: questionsModules
+    module: questionsModules,
+    specs
 };

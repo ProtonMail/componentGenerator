@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const xtend = require('xtend');
-const gutil = require('gulp-util');
 
 const inquirer = require('inquirer');
 const QUESTIONS = require('./config/questions');
@@ -10,7 +8,7 @@ const component = require('./lib/factory');
 const log = require('./lib/log');
 
 const componentConfig = ({ name, component, isLazy }) => {
-    return xtend({ component: name, isLazy }, component);
+    return { component: name, isLazy, ...component };
 };
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -22,8 +20,32 @@ const getName = async () => {
     return inquirer.prompt(QUESTIONS.main);
 };
 
+const isTest = async () => Array.from(process.argv[2]).includes('--test');
+
 (async () => {
     try {
+        if (isTest()) {
+            const data = await inquirer.prompt(QUESTIONS.specs);
+
+            const specFactory = require('./lib/specFactory');
+            const files = require('./lib/readSrc').getFiles();
+            const { spec } = data;
+            const file = files[spec.type].find(({ name }) => spec.file);
+            console.log(JSON.stringify({ spec, file }, null, 2));
+            // const { spec, file } = {
+            //   "spec": {
+            //     "type": "app",
+            //     "file": "sanitize"
+            //   },
+            //   "file": {
+            //     "module": "utils",
+            //     "component": "services",
+            //     "name": "sanitize"
+            //   }
+            // };
+            return specFactory(file, spec);
+        }
+
         const answers = await getName();
         const data = await inquirer.prompt(QUESTIONS.component);
         answers.component = data;
