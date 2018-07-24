@@ -8,7 +8,7 @@ const component = require('./lib/factory');
 const log = require('./lib/log');
 
 const componentConfig = ({ name, component, isLazy }) => {
-    return { component: name, isLazy, ...component };
+    return Object.assign({ component: name, isLazy }, component);
 };
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
