@@ -31,7 +31,62 @@ const factory = ({ component, name, module, src }) => {
     });`;
 };
 
+const directive = ({ component, name, module, src }) => {
+    return `
+    import _ from 'lodash';
+    import service from '../../../../src/app/${src}/${name}';
+
+    import dispatchersService from '../../../../src/app/commons/services/dispatchers';
+    import { generateModuleName } from '../../../utils/helpers';
+
+    describe('[${module}/${component}] ~ ${name}', () => {
+
+        const MODULE = generateModuleName();
+
+        let dom, compile, scope, rootScope;
+        let iscope, $, $$;
+
+
+        angular.module(MODULE, ['templates-app'])
+            .factory('gettextCatalog', () => gettextCatalog)
+            .factory('dispatchers', dispatchersService)
+            .directive('${name}', service);
+
+        beforeEach(angular.mock.module(MODULE));
+
+        beforeEach(angular.mock.inject(($injector) => {
+            rootScope = $injector.get('$rootScope');
+            compile = $injector.get('$compile');
+            scope = rootScope.$new();
+        }));
+
+        describe('Compilation process', () => {
+
+            beforeEach(() => {
+                scope.message = 'message';
+                spyOn(rootScope, '$on').and.callThrough();
+                spyOn(gettextCatalog, 'getString').and.callThrough();
+                dom = compile('<div><div>')(scope);
+                scope.$digest();
+                iscope = dom.isolateScope();
+            });
+
+            it('should replace da nodeName', () => {
+                expect(dom[0].nodeName).toBe('DIV');
+            });
+
+            it('should create an isolate Scope', () => {
+                expect(dom.isolateScope()).toBeDefined();
+            });
+
+        });
+
+    });
+;`;
+};
+
 module.exports = {
+    directive,
     factory,
     helper
 };

@@ -30,19 +30,8 @@ const isTest = async () => Array.from(process.argv[2]).includes('--test');
             const specFactory = require('./lib/specFactory');
             const files = require('./lib/readSrc').getFiles();
             const { spec } = data;
-            const file = files[spec.type].find(({ name }) => spec.file);
-            console.log(JSON.stringify({ spec, file }, null, 2));
-            // const { spec, file } = {
-            //   "spec": {
-            //     "type": "app",
-            //     "file": "sanitize"
-            //   },
-            //   "file": {
-            //     "module": "utils",
-            //     "component": "services",
-            //     "name": "sanitize"
-            //   }
-            // };
+            const file = files[spec.type].find(({ name }) => name === spec.file);
+
             return specFactory(file, spec);
         }
 
