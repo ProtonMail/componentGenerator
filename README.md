@@ -20,6 +20,10 @@ $ appComponent
 
 > It's possible to define the component's name via an argument `$ appComponent <name:String>`
 
+### Create a test
+
+You must run the command with the flag `--test`
+
 
 ## Usage without an alias
 

@@ -100,9 +100,9 @@ const view = ({ component, type }) => {
                         class="fa fa-times close"></button>
 
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <header class="modal-header">
                             <h4 class="modal-title">Modal: ${component}</h4>
-                        </div>
+                        </header>
 
                         <div class="modal-body">
 
