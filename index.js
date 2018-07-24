@@ -20,7 +20,7 @@ const getName = async () => {
     return inquirer.prompt(QUESTIONS.main);
 };
 
-const isTest = async () => Array.from(process.argv[2]).includes('--test');
+const isTest = () => Array.from(process.argv).includes('--test');
 
 (async () => {
     try {
