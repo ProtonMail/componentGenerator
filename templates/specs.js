@@ -14,7 +14,7 @@ const helper = ({ name, module, src }) => {
 
 const factory = ({ component, name, module, src }) => {
     return `
-    import ${name} from '../../../../src/app/${src}/${name}';
+    import factory from '../../../../src/app/${src}/${name}';
 
     const mockService = {
       test: () => ({})
