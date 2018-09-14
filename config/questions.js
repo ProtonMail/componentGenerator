@@ -46,6 +46,10 @@ const questionsComponent = [
     }
 ];
 
+const filterAutocomplete = (name = '', input = '') => {
+    return name.toLowerCase().includes(input.toLowerCase());
+};
+
 const formatModuleChoice = (create = false) => (name) => ({ name, create });
 const bindModuleQuestions = [
     {
@@ -53,7 +57,7 @@ const bindModuleQuestions = [
         message: 'From module :',
         type: 'autocomplete',
         source: async (list, input) => {
-            const col = modules.filter((name) => name.includes(input));
+            const col = modules.filter((name) => filterAutocomplete(name, input));
             const items = col.length ? col.map(formatModuleChoice()) : [input].map(formatModuleChoice(true));
             return items;
         }
@@ -73,7 +77,7 @@ const specs = [
         message: 'From component :',
         type: 'autocomplete',
         async source(config, input) {
-            const col = files[config.spec.type].filter(({ name }) => name.includes(input));
+            const col = files[config.spec.type].filter(({ name }) => filterAutocomplete(name, input));
             return col;
         }
     }
