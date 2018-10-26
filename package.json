@@ -1,6 +1,6 @@
 {
   "name": "component-generator",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "CLI to create new components for: Angular Front-End for ProtonMail",
   "main": "index.js",
   "bin": {
