@@ -18,19 +18,18 @@
     "gulp-tap": "^1.0.1",
     "inquirer": "^6.1.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
-    "natives": "^1.1.4",
-    "prettier": "^1.14.2"
+    "natives": "^1.1.6",
+    "prettier": "^1.14.3"
   },
   "devDependencies": {
-    "husky": "^0.14.3",
-    "lint-staged": "^7.2.2"
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0"
   },
   "scripts": {
     "bind:bash": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.bashrc",
     "bind:zsh": "echo \"\nalias appComponent='$(pwd)/index.js'\" >> ~/.zshrc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretty": "prettier --write index.js lib/**/*.js lib/*.js",
-    "precommit": "lint-staged",
     "postversion": "git push --tags"
   },
   "lint-staged": {
@@ -40,5 +39,10 @@
     ]
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }
