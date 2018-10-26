@@ -8,7 +8,7 @@ const component = require('./lib/factory');
 const log = require('./lib/log');
 
 const componentConfig = ({ name, component, isLazy }) => {
-    return Object.assign({ component: name, isLazy }, component);
+    return { component: name, isLazy, ...component };
 };
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -57,7 +57,7 @@ const isTest = () => Array.from(process.argv).includes('--test');
             const { isLazy } = await inquirer.prompt(QUESTIONS.module);
             answers.isLazy = isLazy;
         }
-        component.create(componentConfig(answers));
+        await component.create(componentConfig(answers));
     } catch (e) {
         log.error(e);
     }
