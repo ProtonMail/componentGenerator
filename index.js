@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const inquirer = require('inquirer');
+const prompts = require('prompts');
 const QUESTIONS = require('./config/questions');
 const component = require('./lib/factory');
 const log = require('./lib/log');
@@ -11,13 +11,11 @@ const componentConfig = ({ name, component, isLazy }) => {
     return { component: name, isLazy, ...component };
 };
 
-inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-
 const getName = async () => {
     if (process.argv[2]) {
         return { name: process.argv[2].trim() };
     }
-    return inquirer.prompt(QUESTIONS.main);
+    return prompts(QUESTIONS.main);
 };
 
 const isTest = () => Array.from(process.argv).includes('--test');
@@ -25,7 +23,7 @@ const isTest = () => Array.from(process.argv).includes('--test');
 (async () => {
     try {
         if (isTest()) {
-            const data = await inquirer.prompt(QUESTIONS.specs);
+            const data = await prompts(QUESTIONS.specs);
 
             const specFactory = require('./lib/specFactory');
             const files = require('./lib/readSrc').getFiles();
@@ -36,11 +34,11 @@ const isTest = () => Array.from(process.argv).includes('--test');
         }
 
         const answers = await getName();
-        const data = await inquirer.prompt(QUESTIONS.component);
+        const data = await prompts(QUESTIONS.component);
         answers.component = data;
 
         if (answers.component.type !== 'module') {
-            const { module } = await inquirer.prompt(QUESTIONS.bindModule);
+            const { module } = await prompts(QUESTIONS.bindModule);
             answers.component.module = module;
 
             if (!module) {
@@ -48,13 +46,13 @@ const isTest = () => Array.from(process.argv).includes('--test');
             }
 
             if ('directive' === answers.component.type || 'modal' === answers.component.type) {
-                const data = await inquirer.prompt(QUESTIONS.directives);
+                const data = await prompts(QUESTIONS.directives);
                 answers.component.options = data;
             }
         }
 
         if (answers.component.type === 'module') {
-            const { isLazy } = await inquirer.prompt(QUESTIONS.module);
+            const { isLazy } = await prompts(QUESTIONS.module);
             answers.isLazy = isLazy;
         }
         await component.create(componentConfig(answers));
