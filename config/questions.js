@@ -17,8 +17,13 @@ const questions = [
         message: 'Name of the component ?',
         validate(input) {
             if (input) {
-                if (/^\d/.test(input)) {
-                    return 'The component must start with [a-z]';
+                if (/^\d|\s|[^\w]|_/.test(input)) {
+                    return [
+                        'The component must start with [a-z] and only contains digit/letters',
+                        'ex:',
+                        '\t - accountModel',
+                        '\t - monitoring',
+                    ].join('\n');
                 }
 
                 return true;
