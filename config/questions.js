@@ -14,6 +14,7 @@ const questions = [
     // },
     {
         name: 'name',
+        type: 'text',
         message: 'Name of the component ?',
         validate(input) {
             if (input) {
@@ -38,15 +39,15 @@ const questionsComponent = [
     {
         name: 'type',
         message: 'Type of component',
-        type: 'list',
+        type: 'select',
         choices: [
-            { name: 'A directive', value: 'directive' },
-            { name: 'A factory', value: 'factory' },
-            { name: 'A service', value: 'service' },
-            { name: 'A modal', value: 'modal' },
-            { name: 'A module', value: 'module' },
-            { name: 'A controller', value: 'controller' },
-            { name: 'A filter', value: 'filter' }
+            { title: 'A directive', value: 'directive' },
+            { title: 'A factory', value: 'factory' },
+            { title: 'A service', value: 'service' },
+            { title: 'A modal', value: 'modal' },
+            { title: 'A module', value: 'module' },
+            { title: 'A controller', value: 'controller' },
+            { title: 'A filter', value: 'filter' }
         ]
     }
 ];
@@ -55,17 +56,21 @@ const filterAutocomplete = (name = '', input = '') => {
     return name.toLowerCase().includes(input.toLowerCase());
 };
 
-const formatModuleChoice = (create = false) => (name) => ({ name, create });
+const formatModuleChoice = (create = false) => (name) => ({ title: name, name, create });
+
+const suggest = async (input, list) => {
+    const col = modules.filter((name) => filterAutocomplete(name, input));
+    const items = col.length ? col.map(formatModuleChoice()) : [input].map(formatModuleChoice(true));
+    return items;
+};
+
 const bindModuleQuestions = [
     {
         name: 'module',
         message: 'From module :',
         type: 'autocomplete',
-        source: async (list, input) => {
-            const col = modules.filter((name) => filterAutocomplete(name, input));
-            const items = col.length ? col.map(formatModuleChoice()) : [input].map(formatModuleChoice(true));
-            return items;
-        }
+        choices: modules.map((title) => ({ title })),
+        suggest
     }
 ];
 
@@ -73,9 +78,9 @@ const specs = [
     {
         name: 'spec.type',
         message: 'Type of component',
-        type: 'list',
+        type: 'choice',
         default: 'component',
-        choices: [{ name: 'A component', value: 'app' }, { name: 'A helper', value: 'helpers' }]
+        choices: [{ title: 'A component', value: 'app' }, { title: 'A helper', value: 'helpers' }]
     },
     {
         name: 'spec.file',
@@ -92,13 +97,13 @@ const questionsDirectives = [
     {
         name: 'hasView',
         message: 'Bind a view (default:true) ?',
-        default: true,
+        initial: true,
         type: 'confirm'
     },
     {
         name: 'hasCSS',
         message: 'Create a CSS (default: true)',
-        default: true,
+        initial: true,
         type: 'confirm'
     }
 ];
@@ -107,7 +112,7 @@ const questionsModules = [
     {
         name: 'isLazy',
         message: 'Do you want to lazy load it (default:false) ?',
-        default: false,
+        initial: false,
         type: 'confirm'
     }
 ];
