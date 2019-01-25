@@ -14,7 +14,7 @@
     "dedent": "^0.7.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
-    "prettier": "^1.15.3",
+    "prettier": "^1.16.1",
     "prompts": "^2.0.1"
   },
   "devDependencies": {
