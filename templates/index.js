@@ -121,7 +121,6 @@ const view = ({ component, type }) => {
 
                         <button
                             class="pm_button primary"
-                            tabindex="1"
                             ng-click="ctrl.submit()"
                             ng-disabled="ctrl.networkActivity"
                             translate-context="Action"
